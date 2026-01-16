@@ -1,0 +1,25 @@
+[Unit]
+Description=Digital Signage Player
+After=multi-user.target
+
+[Service]
+Type=simple
+User=samna
+Group=samna
+
+# Required for GPU/DRM access
+SupplementaryGroups=video render input
+
+Environment=QT_QPA_PLATFORM=eglfs
+Environment=QT_QPA_EGLFS_INTEGRATION=eglfs_kms
+Environment=QT_QPA_EGLFS_KMS_ATOMIC=1
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+
+WorkingDirectory=/home/samna/dev/signage
+ExecStart=/home/samna/dev/signage/build/signage_player
+
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
